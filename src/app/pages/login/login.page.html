@@ -1,0 +1,64 @@
+<ion-content class="swiper-no-swiping">
+  <div class="container top" [hidden]="keyboard.isVisible">
+    <img src="/assets/img/spelev.png">
+
+    <ion-segment (ionChange)="segmentChanged($event)" mode="ios" value="login">
+      <ion-segment-button mode="ios" value="login">
+        <ion-label>Login</ion-label>
+      </ion-segment-button>
+      <ion-segment-button mode="ios" value="register">
+        <ion-label>Inscription</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <ion-slides>
+    <ion-slide>
+      <div class="slide-inner ion-padding">
+        <span>Login</span>
+
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="email" placeholder="E-mail" [(ngModel)]="userLogin.email"></ion-input>
+        </ion-item>
+
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="password" placeholder="Mot de passe" [(ngModel)]="userLogin.password"></ion-input>
+        </ion-item>
+
+        <ion-button class="ion-margin-top" (click)="login()" color="light" expand="block">
+          Entrer
+        </ion-button>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide-inner ion-padding">
+        <span>Inscription</span>
+
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="text" placeholder="Nom"></ion-input>
+        </ion-item>
+
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="email" placeholder="E-mail" [(ngModel)]="userRegister.email"></ion-input>
+        </ion-item>
+
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="password" placeholder="Mot de passe" [(ngModel)]="userRegister.password"></ion-input>
+        </ion-item>
+
+        <ion-button class="ion-margin-top" (click)="register()" color="light" expand="block">
+          Inscription
+        </ion-button>
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+  <div class="ocean">
+    <div class="waves" [ngStyle]="{'background-position-x': wavesPosition + 'px'}"></div>
+
+    <div class="container bottom ion-text-center" [hidden]="keyboard.isVisible">
+      <span>Application Mobile Pour Maintenance Des Ascenseurs</span>
+    </div>
+  </div>
+</ion-content>
