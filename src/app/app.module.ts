@@ -13,6 +13,9 @@ import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { UserService } from 'src/app/services/user.service'
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,12 +26,13 @@ import { Keyboard } from '@ionic-native/keyboard/ngx';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule.enablePersistence()
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    UserService,
     Keyboard
   ],
   bootstrap: [AppComponent]

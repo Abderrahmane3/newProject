@@ -6,9 +6,11 @@ import { LoggedGuard } from './guards/logged.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' , canActivate: [AuthGuard]},
-  { path: 'app', loadChildren: './pages/tabs/tabs.module#TabsPageModule' , canActivate: [LoggedGuard]},
-  
+  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' , canActivate: [LoggedGuard]},
+  { path: 'app', loadChildren: './pages/tabs/tabs.module#TabsPageModule' ,canActivate: [AuthGuard] },
+  { path: 'travail', loadChildren: './pages/travail/travail.module#TravailPageModule',canActivate: [AuthGuard] },
+  { path: 'travail/:id', loadChildren: './pages/travail/travail.module#TravailPageModule', canActivate: [AuthGuard] },
+
   ];
 @NgModule({
   imports: [

@@ -1,55 +1,119 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title >
-        Travaux à réaliser 
-    </ion-title>
+                <ion-header>
+                  <ion-toolbar color="primary">
+                    <ion-title >
+                        Travaux à réaliser 
+                    </ion-title>
 
-    <ion-button slot="end" href="#" router-direction="forward" >
-        <ion-icon slot="icon-only" name="add-circle"></ion-icon>
-      </ion-button>
+                    <ion-button slot="end" routerLink="/travail"  mode="ios" >
+                        <ion-icon slot="icon-only" name="add-circle"></ion-icon>
+                      </ion-button>
+                      <!--<div> *ngIf="isAdmin == 'true' || isCl == 'true'"</div>-->
+                    
+                    </ion-toolbar>
+                    
+                </ion-header>
 
-    
-    </ion-toolbar>
-    
-</ion-header>
+                <ion-toolbar >
 
-<ion-content>
-    <ion-list>
-    <ion-item-sliding id="item100">
-        <ion-item href="#">
-          <ion-label>
-            <h2>HubStruck Notifications</h2>
-            <p>A new message in your network</p>
-            <p>Oceanic Next has joined your network</p>
-          </ion-label>
-          <ion-note slot="end">
-            10:45 AM
-          </ion-note>
-        </ion-item>
-    
-        <ion-item-options side="start">
-          <ion-item-option>
-            <ion-icon slot="icon-only" name="build"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-    
-        <ion-item-options side="end">
-          <ion-item-option color="danger">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-item-option>
-          <ion-item-option>
-            <ion-icon slot="icon-only" name="open"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
+                  <ion-segment [(ngModel)]="nbr" color="secondary"  >
+                    <ion-segment-button value="1" >
+                      <ion-label>Traveaux</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="2" >
+                      <ion-label>Demandes</ion-label>
+                    </ion-segment-button>
+                  </ion-segment>
 
 
-    
+                </ion-toolbar>  
 
 
 
+                  <ion-content >
+                      
+                      <ion-list *ngIf="!jobs.length">
+                          
+                        <ion-item *ngFor="let item of [0, 1, 2]">
+                        <ion-avatar slot="start">
+                          <ion-skeleton-text animated></ion-skeleton-text>
+                        </ion-avatar>
+                        <ion-label>
+                          <h3>
+                            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                          </h3>
+                          <p>
+                            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                          </p>
+                          <p>
+                            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                          </p>
+                        </ion-label>
+                      </ion-item>
+                    </ion-list>
+                    <div [ngSwitch]="nbr">
+                        <ion-list  *ngSwitchCase="'1'" > 
+                            <div *ngIf="status === true">
+                        <ion-item-sliding *ngFor="let job of jobs">
+                        <ion-item button [routerLink]="['/travail', job.id]">
+                          <ion-avatar slot="start">
+                            <img [src]="job.picture">
+                          </ion-avatar>
+                  
+                          <ion-label>
+                            {{ job.title }}
+                            <p>{{ job.description }}</p>
+                            <p>{{ job.createdAt | date: 'short' }}</p>
+                          </ion-label>
+                  
+                        </ion-item>
+                  
+                        <!--
+                                    <ion-note color="primary" slot="end" *ngIf="product.price">{{ product.price | currency: 'BRL' }}</ion-note>
+                         -->
+                <ion-item-options side="end">
+                    <ion-item-option color="danger" (click)="deleteJob(job.id)">
+                      <ion-icon slot="top" name="trash"></ion-icon>
+                      Supprimer
+                    </ion-item-option>
+                  </ion-item-options>
+                      </ion-item-sliding>
+                    </div>
 
+                    </ion-list>
+                    <ion-list *ngSwitchCase="'2'">
+                        <div *ngIf="status === false">
+                      <ion-item-sliding *ngFor="let job of jobs">
+                        <ion-item button [routerLink]="['/travail', job.id]">
+                          <ion-avatar slot="start">
+                            <img [src]="job.picture">
+                          </ion-avatar>
+                  
+                          <ion-label>
+                            {{ job.title }}
+                            <p>{{ job.description }}</p>
+                            <p>{{ job.createdAt | date: 'short' }}</p>
+                          </ion-label>
+                  
+                        </ion-item>
+                  
+                        <!--
+                                    <ion-note color="primary" slot="end" *ngIf="product.price">{{ product.price | currency: 'BRL' }}</ion-note>
+                -->
+                <ion-item-options side="end">
+                    <ion-item-option color="danger" (click)="deleteJob(job.id)">
+                      <ion-icon slot="top" name="trash"></ion-icon>
+                      Supprimer
+                    </ion-item-option>
+                    <ion-item-option color="tertiary" (click)="approveJob(job.id)" >
+                      Approver
+                    </ion-item-option>
+                  </ion-item-options>
+                      </ion-item-sliding>
+                    </div>
 
-
-</ion-content>
+                      </ion-list>
+                      </div>
+                  
+                  </ion-content>
+                  
+                  

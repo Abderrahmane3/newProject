@@ -2,23 +2,23 @@
 
   <ion-tab-bar slot="bottom" >
     <ion-tab-button tab="traveaux" >
-      <ion-icon name="apps"></ion-icon>
+      <ion-icon name="apps" mode="ios"></ion-icon>
       <ion-label>Traveaux</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="personnels" >
-      <ion-icon name="contacts"></ion-icon>
-      <ion-label>personnels</ion-label>
+    <ion-tab-button tab="clients" *ngIf="isAdmin">
+      <ion-icon name="contacts" mode="ios"></ion-icon>
+      <ion-label>Clients</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="messages" >
-      <ion-icon name="chatboxes"></ion-icon>
-      <ion-label>Messages</ion-label>
+    <ion-tab-button tab="techniciens" *ngIf="isAdmin">
+      <ion-icon name="chatboxes" mode="ios"></ion-icon>
+      <ion-label>Techniciens</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="plus" >
-      <ion-icon name="settings"></ion-icon>
-      <ion-label>Plus</ion-label>
+    <ion-tab-button tab="options" >
+      <ion-icon name="settings" mode="ios"></ion-icon>
+      <ion-label>Options</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 

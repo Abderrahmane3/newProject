@@ -17,29 +17,29 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'personnels',
+        path: 'clients',
         children: [
           {
             path: '',
-            loadChildren: '../personnels/tab2.module#Tab2PageModule'
+            loadChildren: '../clients/tab2.module#Tab2PageModule'
           }
         ]
       },
       {
-        path: 'messages',
+        path: 'techniciens',
         children: [
           {
             path: '',
-            loadChildren: '../messages/tab3.module#Tab3PageModule'
+            loadChildren: '../techniciens/tab3.module#Tab3PageModule'
           }
         ]
       },
       {
-        path: 'plus',
+        path: 'options',
         children: [
           {
             path: '',
-            loadChildren: '../plus/tab4.module#Tab4PageModule'
+            loadChildren: '../options/tab4.module#Tab4PageModule'
           }
         ]
       },

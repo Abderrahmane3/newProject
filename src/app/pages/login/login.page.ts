@@ -5,6 +5,13 @@
     import { Keyboard } from '@ionic-native/keyboard/ngx';
     import { AlertController } from '@ionic/angular'
     import { Router } from '@angular/router'
+    import { AngularFirestore } from '@angular/fire/firestore'
+    import { UserService } from 'src/app/services/user.service'
+    import { AngularFireAuth } from '@angular/fire/auth'
+    
+
+
+
 
 
     @Component({
@@ -13,10 +20,15 @@
       styleUrls: ['./login.page.scss'],
     })
     export class LoginPage implements OnInit {
+
+      
+
+
+
       @ViewChild(IonSlides) slides: IonSlides;
       public wavesPosition: number = 0;
       private wavesDifference: number = 100;
-      public userLogin: User = {};
+      public userLogin : User ={};
       public userRegister: User = {};
       private loading: any;
 
@@ -26,6 +38,9 @@
         private toastCtrl: ToastController,
         public alertController: AlertController,
         public router: Router,
+        public user: UserService,
+        public afa: AngularFirestore,
+        public afAuth: AngularFireAuth,
         public keyboard: Keyboard
       ) { }
 
@@ -59,11 +74,10 @@
 
         try {
 
-        if(await this.authService.login(this.userLogin)){
-
+           await this.authService.login(this.userLogin);
           
             this.router.navigateByUrl("/app/tabs/traveaux");
-        }
+        
           
         } catch (error) {
       this.presentToast(error.message);
@@ -72,27 +86,50 @@
         }
       }
       
+    
       
 
         async register() {
-            await this.presentLoading();
+          await this.presentLoading();
 
           try {
-            
-            if (await this.authService.register(this.userRegister)){
-          this.presentAlert('Success', 'You are registered!')
+            await this.authService.register(this.userRegister);
+            this.afa.doc(`users/${this.afAuth.auth.currentUser.uid}`).set({
+              username:this.userRegister.username,
+              email:this.userRegister.email,
+              password:this.userRegister.password,
+              isCli:true
+            })
+            this.presentAlert('Success', 'You are registered!')
+            this.router.navigateByUrl("/app/tabs/traveaux");
+
+          } catch (error) {
+            this.presentToast(error.message);
+          } finally {
+            this.loading.dismiss();
+          }
+        }
+      
+
+               
+             
+    
+
+           /*
+    
+          this.user.setUser({
+            username,
+            uid: res.user.uid
+          })
               this.router.navigateByUrl("/app/tabs/traveaux");
-            }
-
-          
-
+            
         
         } catch (error) {
           this.presentToast(error.message);
         } finally {
           this.loading.dismiss();
-        }
-      }
+        }*/
+    
 
         async presentLoading() {
           this.loading = await this.loadingCtrl.create({ message: 'Att SVP...' });
